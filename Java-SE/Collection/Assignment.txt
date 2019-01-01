@@ -1,0 +1,80 @@
+Enter Your Email Address
+
+Enter your password 
+
+
+Login Successfully 
+Invalid login details, Enter Y to
+login again and N to exit
+
+	Welcome to Uniersity OF Sindh
+	
+1-  Manage Students 
+2-  Manage department 
+3-  Manage Batches
+4-  Manage Teachers
+6-  Assign  Batch to Teacher
+7-  General Inquery
+8-  Manage Users
+
+5-  Exit
+
+1- Manage Students
+	1- Add Students
+	2- Update Students
+	3- Delete Students
+	4- View All Students
+	
+2-  Manage department 
+	1- Add Department
+	2- Update Department
+	3- Delete Department
+	4- View All Departments
+
+3-  Manage Batches
+	1- Add Batches
+	2- Update Batches
+	3- Delete Batches
+	4- View All Batches
+
+4-  Manage Teachers
+	1- Add Teacher
+	2- Update Teacher
+	3- Delete Teacher
+	4- View All Teachers
+	
+
+1- Manage Students
+	1- Add Students
+		Enter Student Name
+		Sadauat
+		Enter Department
+		List
+		2
+		Enter Batches	
+		List
+		1
+6- 
+		Enter Batch No;
+		11SW
+		Enter Teacher Name
+		List
+		1
+
+		
+7--
+		1- Check Student Stuff
+		(Teachers,Batch,Department,student details)
+		2- Check Teacher 
+		(batches teaching)
+		3- Department Students
+		(list of students studying in particular department)
+		4- Check Batch Students
+		(list of Students studying in particular batch)
+		
+8-  Manage Users
+	1- Add User
+	2- Update User
+	3- Delete User
+	4- View All Users
+		
