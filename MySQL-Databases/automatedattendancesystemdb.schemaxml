@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">automatedattendancesystemdb</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="permission" view="colnames">
+<left>11</left>
+<top>15</top>
+<width>147</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `permission` (
+  `permission_id` int(255) NOT NULL AUTO_INCREMENT,
+  `permission_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`permission_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="admin" view="colnames">
+<left>159</left>
+<top>395</top>
+<width>142</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_name` varchar(255) DEFAULT NULL,
+  `admin_password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="attendence" view="colnames">
+<left>254</left>
+<top>9</top>
+<width>126</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `attendence` (
+  `attendance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `attendence` varchar(255) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  PRIMARY KEY (`attendance_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="role_permission" view="colnames">
+<left>170</left>
+<top>219</top>
+<width>154</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `role_permission` (
+  `role_permission_id` int(255) NOT NULL AUTO_INCREMENT,
+  `role_id` int(255) DEFAULT NULL,
+  `permission_id` int(255) DEFAULT NULL,
+  PRIMARY KEY (`role_permission_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `role_permission_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`permission_id`),
+  CONSTRAINT `role_permission_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="roles" view="colnames">
+<left>388</left>
+<top>326</top>
+<width>107</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `roles` (
+  `role_id` int(255) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(255) DEFAULT NULL,
+  `active` int(11) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="student" view="colnames">
+<left>494</left>
+<top>15</top>
+<width>126</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `student` (
+  `std_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `contact_no` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `dob` varchar(255) DEFAULT NULL,
+  `class` varchar(255) DEFAULT NULL,
+  `present` varchar(255) DEFAULT 'yes',
+  `password` varchar(255) DEFAULT NULL,
+  `active` int(11) DEFAULT '1',
+  `attendance_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`std_id`),
+  KEY `attendance_id` (`attendance_id`),
+  CONSTRAINT `student_ibfk_1` FOREIGN KEY (`attendance_id`) REFERENCES `attendence` (`attendance_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="student_teacher" view="colnames">
+<left>741</left>
+<top>20</top>
+<width>130</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `student_teacher` (
+  `std_teacher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `std_id` int(11) DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `time` time DEFAULT NULL,
+  PRIMARY KEY (`std_teacher_id`),
+  KEY `std_id` (`std_id`),
+  KEY `teacher_id` (`teacher_id`),
+  CONSTRAINT `student_teacher_ibfk_1` FOREIGN KEY (`std_id`) REFERENCES `student` (`std_id`),
+  CONSTRAINT `student_teacher_ibfk_2` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`teacher_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="teacher" view="colnames">
+<left>599</left>
+<top>338</top>
+<width>108</width>
+<height>265</height>
+<sql_create_table>CREATE TABLE `teacher` (
+  `teacher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `contact_no` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `active` int(11) DEFAULT '1',
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`teacher_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
