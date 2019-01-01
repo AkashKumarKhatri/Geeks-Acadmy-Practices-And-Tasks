@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">shopmanagementsystem</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="category" view="colnames">
+<left>16</left>
+<top>14</top>
+<width>157</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_category_id` int(11) DEFAULT NULL,
+  `category_name` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `parent_category_id` (`parent_category_id`),
+  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`parent_category_id`) REFERENCES `category` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="company" view="colnames">
+<left>211</left>
+<top>319</top>
+<width>137</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `company` (
+  `company_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `contact_person` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`company_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="discount" view="colnames">
+<left>365</left>
+<top>522</top>
+<width>127</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `discount` (
+  `discount_id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_type` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`discount_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="order" view="colnames">
+<left>802</left>
+<top>48</top>
+<width>127</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `order_code` varchar(255) DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `discount_id` int(11) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `total_price` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `user_id` (`user_id`),
+  KEY `discount_id` (`discount_id`),
+  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`discount_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="order_details" view="colnames">
+<left>427</left>
+<top>35</top>
+<width>132</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `order_details` (
+  `order_detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`order_detail_id`),
+  KEY `order_id` (`order_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
+  CONSTRAINT `order_details_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="permission" view="colnames">
+<left>831</left>
+<top>783</top>
+<width>147</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `permission` (
+  `permission_id` int(11) NOT NULL AUTO_INCREMENT,
+  `permission_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`permission_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="product" view="colnames">
+<left>217</left>
+<top>19</top>
+<width>137</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `net_price` int(11) DEFAULT NULL,
+  `consumer_price` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `expiry_date` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`product_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="role" view="colnames">
+<left>355</left>
+<top>762</top>
+<width>127</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="role_permission" view="colnames">
+<left>537</left>
+<top>783</top>
+<width>154</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `role_permission` (
+  `role_permission_id` int(11) NOT NULL AUTO_INCREMENT,
+  `permission_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`role_permission_id`),
+  KEY `permission_id` (`permission_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `role_permission_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`permission_id`),
+  CONSTRAINT `role_permission_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="stock" view="colnames">
+<left>16</left>
+<top>506</top>
+<width>137</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `stock` (
+  `stock_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) DEFAULT NULL,
+  `purchased_date` timestamp NULL DEFAULT NULL,
+  `stock_code` varchar(255) DEFAULT NULL,
+  `discount_id` int(11) DEFAULT NULL,
+  `discount` double(16,4) DEFAULT NULL,
+  `total_price` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`stock_id`),
+  KEY `company_id` (`company_id`),
+  KEY `discount_id` (`discount_id`),
+  CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`),
+  CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`discount_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="stock_details" view="colnames">
+<left>45</left>
+<top>244</top>
+<width>131</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `stock_details` (
+  `stock_detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`stock_detail_id`),
+  KEY `stock_id` (`stock_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `stock_details_ibfk_1` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`stock_id`),
+  CONSTRAINT `stock_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="user" view="colnames">
+<left>621</left>
+<top>454</top>
+<width>132</width>
+<height>282</height>
+<sql_create_table>CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  KEY `user_type_id` (`user_type_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`user_type_id`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="user_type" view="colnames">
+<left>847</left>
+<top>446</top>
+<width>142</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `user_type` (
+  `user_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type_name` varchar(255) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `modified_by` int(11) DEFAULT NULL,
+  `modified_date` timestamp NULL DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`user_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
